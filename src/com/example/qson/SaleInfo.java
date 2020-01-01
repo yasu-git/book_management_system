@@ -15,5 +15,8 @@ public class SaleInfo {
     @SerializedName("isEbook")
     @Expose
     public Boolean isEbook;
+    @SerializedName("listPrice")
+    @Expose
+    public ListPrice listPrice = null;
 
 }

@@ -2,6 +2,7 @@
 package com.example.qson;
 
 import java.util.List;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -13,6 +14,9 @@ public class VolumeInfo {
     @SerializedName("authors")
     @Expose
     public List<String> authors = null;
+    @SerializedName("publisher")
+    @Expose
+    public String publisher;
     @SerializedName("publishedDate")
     @Expose
     public String publishedDate;
