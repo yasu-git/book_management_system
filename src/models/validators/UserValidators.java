@@ -20,7 +20,7 @@ public class UserValidators {
         }
 
         //namaが入力されているか
-        String name_error = _validateName(u.getName());
+        String name_error = _validateUserName(u.getUserName());
 
         if(!name_error.equals("")){
             errors.add(name_error);
@@ -61,8 +61,8 @@ public class UserValidators {
     }
 
     //userNameの必須入力チェック
-    private static String _validateName(String name){
-        if(name ==null || name.equals("")){
+    private static String _validateUserName(String userName){
+        if(userName ==null || userName.equals("")){
             return "氏名を入力してください。";
         }
         return "";
