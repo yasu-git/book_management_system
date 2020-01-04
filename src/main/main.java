@@ -1,6 +1,5 @@
 package main;
 
-import googleBookApi.GoogleBookApiGson;
 import googleBookApi.GoogleBookApiJackson;
 
 public class main {
@@ -13,7 +12,7 @@ public class main {
 
         System.out.println();
 
-        GoogleBookApiGson.GoogleBook(isbn);
+
     }
 
 }

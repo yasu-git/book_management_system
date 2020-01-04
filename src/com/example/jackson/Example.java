@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "totalItems",
     "items"
 })
-public class Book {
+public class Example {
 
     @JsonProperty("kind")
     public String kind;

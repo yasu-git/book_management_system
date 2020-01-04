@@ -2,8 +2,7 @@
 
 body {
     color: #333333;
-    font-family: "Hiragino Kaku Gothic Pro", Meiryo, "MS PGothic", Helvetica,
-        Arial, sans-serif;
+    font-family: "Hiragino Kaku Gothic Pro", Meiryo, "MS PGothic", Helvetica, Arial, sans-serif;
 }
 
 /* flush */
@@ -92,9 +91,10 @@ a {
 }
 
 pre {
-    font-family: "Hiragino Kaku Gothic Pro",Meiryo,"MS PGothic",Helvetica,Arial,sans-serif;
+    font-family: "Hiragino Kaku Gothic Pro", Meiryo, "MS PGothic", Helvetica,
+        Arial, sans-serif;
 }
-/*table*/
+/* table */
 table, tr, th, td {
     border: 1px solid #cccccc;
 }
@@ -113,7 +113,6 @@ td {
     width: 66%;
     padding: 10px 2%;
 }
-
 
 table#user_list th {
     width: 30% padding: 10px 2%;
@@ -136,6 +135,7 @@ table#report_list .report_name {
     width: 20%;
     padding: 10px 2%;
 }
+
 table#report_list .report_date {
     width: 20%;
 }
@@ -148,6 +148,8 @@ table#report_list .report_action {
     width: 13%;
 }
 
+/* form */
+
 select {
     height: 30px;
 }
@@ -156,6 +158,7 @@ button {
     font-size: 14px;
     padding: 5px 10px;
 }
+
 /*footer*/
 #footer {
     text-align: center;
