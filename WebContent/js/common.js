@@ -6,3 +6,10 @@ destroy.addEventListener( 'click' , ()=> {
         document.forms[1].submit();
     }
 },false);
+
+let isbn = document.getElementById('input_isbn');
+let isbn_form = document.getElementById('isbn_form');
+
+isbn.addEventListener('change',()=> {
+    isbn_form.submit();
+})

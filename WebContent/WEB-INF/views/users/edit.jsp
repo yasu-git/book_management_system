@@ -25,6 +25,6 @@
         </c:choose>
         
         <p><a href="<c:url value='/users/index' />">一覧に戻る</a></p>
-        
+        <script src="<c:url value='/js/common.js'/>"></script>
     </c:param>
 </c:import>
