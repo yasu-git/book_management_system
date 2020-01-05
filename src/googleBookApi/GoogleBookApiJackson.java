@@ -6,6 +6,7 @@ import java.sql.Date;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import models.Book;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -13,28 +14,27 @@ import okhttp3.Response;
 public class GoogleBookApiJackson {
     public static final String url = "https://www.googleapis.com/books/v1/volumes?q=isbn:";
 
-    public static void getBook(Long isbn){
+    public static Book getBook(Long isbn){
 
-        //jsonを保持
-        String json ="";
+        Book book = new Book();
 
         //本の題名
-        String title = "";
+        String title ="";
         //作者
-        String author = "";
+        String[] author = new String[3];
         //出版日
         Date publishedDate = null;
 
         //出版社
-        String publisher = "";
+        String publisher ="";
         //定価
-        Integer listPrice = null;
+        Integer listPrice =0;
         //説明文
         String description = "";
         //ページ数
-        Integer pageCount = null;
+        Integer pageCount =0;
         //smallサムネイル
-        String smallThumbnail ="";
+        String smallThumbnail = "";
         //サムネイル
         String thumbnail = "";
 
@@ -51,22 +51,24 @@ public class GoogleBookApiJackson {
         Request request = builder.build();
 
         Response response = null;
-        try {
-            response = okHttpClient.newCall(request).execute();
-            json = response.body().string();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
 
         //jsonの内容を表示する
 //        System.out.println(json);
 
-        ObjectMapper mapper = new ObjectMapper();
+
         try {
+            response = okHttpClient.newCall(request).execute();
+            String json = response.body().string();
+
+            ObjectMapper mapper = new ObjectMapper();
+
             JsonNode node = mapper.readTree(json);
 
              title =          node.get("items").get(0).get("volumeInfo").get("title").asText();
-             author =         node.get("items").get(0).get("volumeInfo").get("authors").get(0).asText();
+             author[0] =         node.get("items").get(0).get("volumeInfo").get("authors").get(0).asText();
+             author[1] =         node.get("items").get(0).get("volumeInfo").get("authors").get(1).asText();
+             author[2] =         node.get("items").get(0).get("volumeInfo").get("authors").get(2).asText();
              publisher =      node.get("items").get(0).get("volumeInfo").get("publisher").asText();
 
              //出版日をDate型に変換するためにString dayで受け取り
@@ -86,17 +88,20 @@ public class GoogleBookApiJackson {
 
         }
 
-        System.out.println("title: " +title);
-        System.out.println("author: " +author);
-        System.out.println("出版社: "+publisher);
-        System.out.println("出版日: " + publishedDate);
-        System.out.println("定価: " + listPrice + "円");
-        System.out.println("説明文: " + description);
-        System.out.println("ページ数: " + pageCount);
-        System.out.println("小さいサムネイル: " + smallThumbnail);
-        System.out.println("サムネイル: " +thumbnail);
+        book.setTitle(title);
+        book.setAuthor1(author[0]);
+        book.setAuthor2(author[1]);
+        book.setAuthor3(author[2]);
+        book.setPublishedDate(publishedDate);
+        book.setPublisher(publisher);
+        book.setListPrice(listPrice);
+        book.setDescription(description);
+        book.setPageCount(pageCount);
+        book.setSmallThumbnail(smallThumbnail);
+        book.setThumbnail(thumbnail);
 
 
+        return book;
 
     }
 

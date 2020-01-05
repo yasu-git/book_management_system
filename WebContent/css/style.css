@@ -126,25 +126,25 @@ tr.row2 {
     background-color: #ffffff;
 }
 
-table#report_list th {
+table#book_list th {
     font-weight: bold;
     padding: 10px 2%;
 }
 /*table report_list 幅指定*/
-table#report_list .report_name {
+table#book_list .book_name {
     width: 20%;
     padding: 10px 2%;
 }
 
-table#report_list .report_date {
+table#book_list .book_date {
     width: 20%;
 }
 
-table#report_list .report_title {
+table#book_list .book_title {
     width: 37%;
 }
 
-table#report_list .report_action {
+table#book_list .book_action {
     width: 13%;
 }
 
