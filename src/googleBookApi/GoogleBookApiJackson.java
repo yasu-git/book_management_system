@@ -24,7 +24,7 @@ public class GoogleBookApiJackson {
         String author = "";
         //出版日
         Date publishedDate = null;
-        String day = "";
+
         //出版社
         String publisher = "";
         //定価
@@ -70,7 +70,7 @@ public class GoogleBookApiJackson {
              publisher =      node.get("items").get(0).get("volumeInfo").get("publisher").asText();
 
              //出版日をDate型に変換するためにString dayで受け取り
-             day = node.get("items").get(0).get("volumeInfo").get("publishedDate").textValue();
+             String day = node.get("items").get(0).get("volumeInfo").get("publishedDate").textValue();
 
              //文字列をsql型のDateに変換
              publishedDate =  Date.valueOf(day);
