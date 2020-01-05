@@ -18,7 +18,7 @@
 <br><br>
 
 <label for="password">パスワード</label>
-<input type="text" name="password" value="${user.password}">
+<input type="password" name="password" value="${user.password}">
 <br><br>
 
 <label for="admin_flag" >権限</label>

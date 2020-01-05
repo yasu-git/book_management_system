@@ -19,7 +19,7 @@ import javax.persistence.Table;
             query = "SELECT u FROM User AS u ORDER BY u.id DESC"
             ),
     @NamedQuery(
-            name = "getUserCount",
+            name = "getUsersCount",
             query = "SELECT COUNT(u) FROM User AS u"
             ),
     //新規ユーザー登録時に入力されたコードがあるか検索する
