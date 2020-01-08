@@ -31,7 +31,9 @@
 		                        </tr>
 		                        <tr>
 		                            <th>発売日</th>
-		                            <td><c:out value="${book.publishedDate}" /></td>
+		                            <td><fmt:formatDate value="${book.publishedDate}" pattern="yyyy年MM月dd日" /></td>
+		                            <!-- <td><c:out value="${book.publishedDate}" /></td> -->
+		                            
 		                        </tr>
 		                        <tr>
 		                            <th>出版社</th>
@@ -58,7 +60,7 @@
 		                           <tr>
                                        <th>登録日</th>
                                        <td>
-                                        <fmt:formatDate value="${book.created_at}" pattern="yyyy-MM-dd HH:mm:ss" />
+                                        <fmt:formatDate value="${book.created_at}" pattern="yyyy年MM月dd日 HH時mm分ss秒" />
                                        </td>
                                    </tr>
                                    <tr>
@@ -71,8 +73,8 @@
                     
                 </div>
 
-                <c:if test="${sessionScope.login_employee.id == report.employee.id}">
-                    <p><a href="<c:url value="/books/edit?id=${book.id}" />">この日報を編集する</a></p>
+                <c:if test="${sessionScope.login_user.id == book.user.id}">
+                    <p><a href="<c:url value="/books/edit?id=${book.id}" />">この本の評価を編集する</a></p>
                 </c:if>
             </c:when>
             <c:otherwise>

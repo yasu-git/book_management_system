@@ -10,8 +10,8 @@
 
     </div>
 </c:if>
-<label for="isbn">ISBN</label><br />
-<input type="text" name="isbn" />
+<label for="evaluate">評価</label><br />
+<input type="number" name="evaluate"  step="1"  min="0" max="5"/>
 <br /><br />
 
 <input type="hidden" name="_token" value="${_token}" />
