@@ -12,32 +12,33 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class GoogleBookApiJackson {
+
+    private Long isbn = 0L;
+
     public static final String url = "https://www.googleapis.com/books/v1/volumes?q=isbn:";
 
-    public static Book getBook(Long isbn){
+
+    public GoogleBookApiJackson(Long isbn){
+        this.isbn = isbn;
+    }
+
+    public Long getIsbn(){
+        return isbn;
+    }
+
+    public void setIsbn(Long isbn){
+        this.isbn = isbn;
+    }
+
+    public String getUrl(){
+        return  url;
+    }
+
+
+
+    public Book getBook(){
 
         Book book = new Book();
-
-        //本の題名
-        String title ="";
-        //作者
-        String[] author = new String[3];
-        //出版日
-        Date publishedDate = null;
-
-        //出版社
-        String publisher ="";
-        //定価
-        Integer listPrice =0;
-        //説明文
-        String description = "";
-        //ページ数
-        Integer pageCount =0;
-        //smallサムネイル
-        String smallThumbnail = "";
-        //サムネイル
-        String thumbnail = "";
-
 
         OkHttpClient okHttpClient;
 
@@ -46,7 +47,7 @@ public class GoogleBookApiJackson {
         Request.Builder builder = new Request.Builder();
 
         //urlでリクエストを送信するアドレスを挿入
-        builder.url(url + isbn);
+        builder.url(getUrl() + getIsbn());
 
         Request request = builder.build();
 
@@ -65,41 +66,27 @@ public class GoogleBookApiJackson {
 
             JsonNode node = mapper.readTree(json);
 
-             title =          node.get("items").get(0).get("volumeInfo").get("title").asText();
-             author[0] =         node.get("items").get(0).get("volumeInfo").get("authors").get(0).asText();
-             author[1] =         node.get("items").get(0).get("volumeInfo").get("authors").get(1).asText();
-             author[2] =         node.get("items").get(0).get("volumeInfo").get("authors").get(2).asText();
-             publisher =      node.get("items").get(0).get("volumeInfo").get("publisher").asText();
+            book.setTitle(node.get("items").get(0).get("volumeInfo").get("title").asText());
+            book.setAuthor1(node.get("items").get(0).get("volumeInfo").get("authors").get(0).asText());
+            book.setAuthor2(node.get("items").get(0).get("volumeInfo").get("authors").get(1).asText());
+            book.setAuthor3(node.get("items").get(0).get("volumeInfo").get("authors").get(2).asText());
 
-             //出版日をDate型に変換するためにString dayで受け取り
-             String day = node.get("items").get(0).get("volumeInfo").get("publishedDate").textValue();
+          //出版日をDate型に変換するためにString dayで受け取り
+            String day = node.get("items").get(0).get("volumeInfo").get("publishedDate").textValue();
 
-             //文字列をsql型のDateに変換
-             publishedDate =  Date.valueOf(day);
-
-             listPrice =      node.get("items").get(0).get("saleInfo").get("listPrice").get("amount").asInt();
-             description =    node.get("items").get(0).get("volumeInfo").get("description").asText();
-             pageCount =      node.get("items").get(0).get("volumeInfo").get("pageCount").asInt();
-             smallThumbnail = node.get("items").get(0).get("volumeInfo").get("imageLinks").get("smallThumbnail").asText();
-             thumbnail =      node.get("items").get(0).get("volumeInfo").get("imageLinks").get("thumbnail").asText();
+          //文字列をsql型のDateに変換
+            book.setPublishedDate(Date.valueOf(day));
+            book.setPublisher(node.get("items").get(0).get("volumeInfo").get("publisher").asText());
+            book.setListPrice(node.get("items").get(0).get("saleInfo").get("listPrice").get("amount").asInt());
+            book.setDescription(node.get("items").get(0).get("volumeInfo").get("description").asText());
+            book.setPageCount(node.get("items").get(0).get("volumeInfo").get("pageCount").asInt());
+            book.setSmallThumbnail(node.get("items").get(0).get("volumeInfo").get("imageLinks").get("smallThumbnail").asText());
+            book.setThumbnail(node.get("items").get(0).get("volumeInfo").get("imageLinks").get("thumbnail").asText());
 
         } catch (IOException e) {
             e.printStackTrace();
 
         }
-
-        book.setTitle(title);
-        book.setAuthor1(author[0]);
-        book.setAuthor2(author[1]);
-        book.setAuthor3(author[2]);
-        book.setPublishedDate(publishedDate);
-        book.setPublisher(publisher);
-        book.setListPrice(listPrice);
-        book.setDescription(description);
-        book.setPageCount(pageCount);
-        book.setSmallThumbnail(smallThumbnail);
-        book.setThumbnail(thumbnail);
-
 
         return book;
 

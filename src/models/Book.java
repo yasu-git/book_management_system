@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -43,23 +44,23 @@ public class Book {
     private String title;
 
     //作者
-    @Column(name = "author1", nullable = false)
+    @Column(name = "author1", length = 30 , nullable = false)
     private String author1;
 
   //作者
-    @Column(name = "author2")
-    private String author2;
+    @Column(name = "author2", length = 30, nullable = true)
+    private String author2 ;
 
   //作者
-    @Column(name = "author3")
-    private String author3;
+    @Column(name = "author3", length = 30 , nullable = true)
+    private String author3 ;
 
     //出版日
     @Column(name = "publishedDate", nullable = false)
     private Date publishedDate;
 
     //出版社
-    @Column(name = "publisher", nullable = false)
+    @Column(name = "publisher", length = 255 , nullable = false)
     private String publisher;
 
     //定価
@@ -67,6 +68,7 @@ public class Book {
     private Integer listPrice;
 
     //説明文
+    @Lob
     @Column(name = "description", nullable = false)
     private String description;
 
@@ -82,6 +84,7 @@ public class Book {
     @Column(name = "thumbnail", nullable = false)
     private String thumbnail;
 
+    //評価
     @Column(name = "evaluate", nullable = false)
     private Integer evaluate;
 

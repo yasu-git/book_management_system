@@ -47,7 +47,7 @@ public class IsbnValidator {
     }
 
     private static String _validateFigureLength(String isbn){
-        if(isbn.length() == 13 || isbn.length() == 10) {
+        if(isbn.length() != 13 && isbn.length() != 10) {
             return "ISBN13かISBN10で入力してください";
             }
 

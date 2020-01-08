@@ -18,7 +18,7 @@
                 </tr>
                 <c:forEach var="book" items="${books}" varStatus="status">
                     <tr class="row${status.count % 2}">
-                        <td class="book_name"><c:out value="${book.user.name}" /></td>
+                        <td class="book_name"><c:out value="${book.user.userName}" /></td>
                         <td class="book_title">${book.title}</td>
                         <td class="book_action"><a href="<c:url value='/books/show?id=${book.id}' />">詳細を見る</a></td>
                     </tr>
