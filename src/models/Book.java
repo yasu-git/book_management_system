@@ -73,7 +73,7 @@ public class Book {
     private String description;
 
     //ページ数
-    @Column(name = "pageCoun", nullable = false)
+    @Column(name = "pageCount", nullable = false)
     private Integer pageCount;
 
     //smallサムネイル
