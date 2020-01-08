@@ -26,6 +26,14 @@ import javax.persistence.Table;
             name = "getBooksCount",
             query = "SELECT COUNT(b) FROM Book AS b"
             ),
+    @NamedQuery(
+            name = "getMyAllBooks",
+            query = "SELECT b FROM Book AS b WHERE b.user = :user ORDER BY b.id DESC"
+            ),
+    @NamedQuery(
+            name = "getMyBooksCount",
+            query = "SELECT COUNT(b) FROM Book AS b WHERE b.user = :user"
+            )
 })
 @Entity
 public class Book {
