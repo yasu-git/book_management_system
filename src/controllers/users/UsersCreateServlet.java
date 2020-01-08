@@ -46,7 +46,8 @@ public class UsersCreateServlet extends HttpServlet {
            u.setUserId(request.getParameter("userId"));
            u.setUserName(request.getParameter("userName"));
            u.setPassword(
-                   EncryptUtil.getPasswordEncrypt("password",
+                   EncryptUtil.getPasswordEncrypt(
+                           request.getParameter("password"),
                            (String)this.getServletContext().getAttribute("salt")
                            )
                    );
