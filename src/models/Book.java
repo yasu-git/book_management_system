@@ -33,7 +33,12 @@ import javax.persistence.Table;
     @NamedQuery(
             name = "getMyBooksCount",
             query = "SELECT COUNT(b) FROM Book AS b WHERE b.user = :user"
+            ),
+    @NamedQuery(
+            name = "getMyBooksDuplicationCount",
+            query = "SELECT COUNT(b) FROM Book AS b WHERE b.user = :user AND b.isbn = :isbn"
             )
+
 })
 @Entity
 public class Book {
@@ -52,7 +57,7 @@ public class Book {
     private String title;
 
     //作者
-    @Column(name = "author1", length = 30 , nullable = false)
+    @Column(name = "author1", length = 30 , nullable = true)
     private String author1;
 
   //作者
@@ -68,16 +73,16 @@ public class Book {
     private Date publishedDate;
 
     //出版社
-    @Column(name = "publisher", length = 255 , nullable = false)
+    @Column(name = "publisher", length = 255 , nullable = true)
     private String publisher;
 
     //定価
-    @Column(name = "listPrice", nullable = false)
+    @Column(name = "listPrice", nullable = true)
     private Integer listPrice;
 
     //説明文
     @Lob
-    @Column(name = "description", nullable = false)
+    @Column(name = "description", nullable = true)
     private String description;
 
     //ページ数
@@ -98,6 +103,9 @@ public class Book {
 
     @Column(name = "created_at", nullable = false)
     private Timestamp created_at;
+
+    @Column(name = "isbn",nullable = true)
+    private Long isbn;
 
 
     public Integer getId() {
@@ -225,6 +233,14 @@ public class Book {
 
     public void setCreated_at(Timestamp created_at) {
         this.created_at = created_at;
+    }
+
+    public Long getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(Long isbn) {
+        this.isbn = isbn;
     }
 
 
