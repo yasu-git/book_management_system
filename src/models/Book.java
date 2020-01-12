@@ -120,6 +120,12 @@ public class Book {
     @Column(name = "isbn",nullable = true)
     private Long isbn;
 
+    @Column(name = "infoLink", nullable = false)
+    private String infoLink;
+
+    @Column(name = "infoLinkImg", nullable = false)
+    private String infoLinkImg;
+
 
     public Integer getId() {
         return id;
@@ -254,6 +260,21 @@ public class Book {
 
     public void setIsbn(Long isbn) {
         this.isbn = isbn;
+    }
+
+    public String getInfoLink(){
+        return infoLink;
+    }
+
+    public void setInfoLink(String infoLink) {
+        this.infoLink = infoLink;
+    }
+    public String getInfoLinkImg(){
+        return infoLinkImg;
+    }
+
+    public void setInfoLinkImg(String infoLinkImg) {
+        this.infoLinkImg = infoLinkImg;
     }
 
 

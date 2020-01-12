@@ -7,15 +7,15 @@
                 ユーザーIDかパスワードが間違っています。
             </div>
         </c:if>
-        
+
         <c:if test="${flush != null}">
             <div id="flush_success">
                 <c:out value="${flush}" />
             </div>
         </c:if>
-        
+
         <h2>ログイン</h2>
-        
+
         <form method="post" action="<c:url value='/login' />">
             <label for="userId">ユーザーID</label><br />
             <input type="text" name="userId" value="${userId}" />
@@ -28,5 +28,8 @@
             <input type="hidden" name="_token" value="${_token}" />
             <button type="submit">ログイン</button>
         </form>
+
+        <br><br><br>
+        <p><a href="<c:url value='/userRegistration/new' />">ユーザー登録ページ</a></p>
     </c:param>
 </c:import>

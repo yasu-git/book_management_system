@@ -66,6 +66,10 @@
                                         <th>ISBNコード</th>
                                         <td><c:out value="${book.isbn}" /></td>
                                     </tr>
+                                    <tr>
+                                        <th>販売サイト</th>
+                                        <td><a href="<c:out value='${book.infoLink}' />">Google Play</a></td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>

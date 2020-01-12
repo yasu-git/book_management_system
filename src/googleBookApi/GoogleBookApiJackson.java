@@ -18,11 +18,11 @@ public class GoogleBookApiJackson {
     private Integer count = 0;
 
     //googleBooksApiのアドレス
-    public final String url = "https://www.googleapis.com/books/v1/volumes?q=";
+    private final String url = "https://www.googleapis.com/books/v1/volumes?q=";
 
-    JsonNode node ;
+    private JsonNode node ;
 
-    Book book = new Book();
+    private Book book = new Book();
 
     //getter
     //setter
@@ -165,6 +165,12 @@ public class GoogleBookApiJackson {
             book.setIsbn(node.get("items").get(0).get("volumeInfo").get("industryIdentifiers").get(0).get("identifier").asLong());
         }catch(Exception e){
             book.setIsbn(0L);
+        }
+
+        try{
+            book.setInfoLink(node.get("items").get(0).get("volumeInfo").get("infoLink").asText());
+        }catch(Exception e){
+            book.setInfoLink("リンク情報なし");
         }
 
         return book;

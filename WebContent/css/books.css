@@ -15,7 +15,7 @@
 #main_book_left {
     float:left;
     width: 100px;
-    height:250px;
+
     padding:50px;
 
 }
@@ -23,6 +23,6 @@
 #main_book_right {
     float: right;
     width: 600px;
-    height:350px;
+
     padding:0 50px;
 }

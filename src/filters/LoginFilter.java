@@ -51,7 +51,7 @@ public class LoginFilter implements Filter {
             User u =(User)session.getAttribute("login_user");
 
             //ログイン画面以外について
-            if(!servlet_path.equals("/login")){
+            if(!servlet_path.equals("/login") && (!servlet_path.equals("/userRegistration/new"))){
                 //ログアウトしている状態であれば
                 //ログイン画面にリダイレクト
                 if(u == null){

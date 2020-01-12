@@ -16,6 +16,7 @@ import googleBookApi.GoogleBookApiJackson;
 import models.Book;
 import models.User;
 import models.validators.IsbnValidator;
+import qr.QRCodeEncoder;
 import utils.DBUtil;
 
 /**
@@ -67,16 +68,19 @@ public class BooksCreateServlet extends HttpServlet {
 
                 //bookの数を取得
                 int count = google.getCount();
+                b = google.getBooks();
+
+                QRCodeEncoder qr = new QRCodeEncoder();
+
+                String png =qr.QRcodCreate(b.getInfoLink(), b.getTitle());
+
+                b.setInfoLinkImg(png);
 
 
                     //apiから帰ってきたitem数が0だったら本の情報を取得できなかった
                if(count == 0){
                         errors.add("本の情報がありません");
                }else{
-                        //item情報がある場合の処理
-                        b = google.getBooks();
-
-                        b.setIsbn(isbn);
 
                         //登録する本の情報がデーターベースにあるか
                         //setParameterで呼び出したquery文のパラメータにセットする
@@ -86,8 +90,20 @@ public class BooksCreateServlet extends HttpServlet {
                                 .getSingleResult();
 
                         //登録する本の情報がデーターベースにあった場合errorを返す
-                        if (books_DuplicationCount > 0) {
-                            errors.add("登録されている本です");
+                    if (books_DuplicationCount > 0) {
+                        errors.add("登録されている本です");
+
+                    }else{
+
+                      //item情報がある場合の処理
+
+                        b.setIsbn(isbn);
+                        b.setUser(user);
+                        b.setEvaluate(0);
+
+                        Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+                        b.setCreated_at(currentTime);
+
                     }
                 }
 
@@ -95,12 +111,6 @@ public class BooksCreateServlet extends HttpServlet {
                 errors.add("登録できません");
             }
 
-
-            b.setUser(user);
-            b.setEvaluate(0);
-
-            Timestamp currentTime = new Timestamp(System.currentTimeMillis());
-            b.setCreated_at(currentTime);
 
             if (errors.size() > 0) {
                 em.close();
