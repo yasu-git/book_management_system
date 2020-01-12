@@ -7,12 +7,12 @@
             <c:when test="${user != null}">
                 <h2>ユーザー情報　編集ページ</h2>
                 <p>(パスワードは変更する場合の入力してください)</p>
-                <form method="post" action="<c:url value='/users/update'/>">
+                <form method="post" action="<c:url value='/userRegistration/update'/>">
                     <c:import url="_form.jsp" />
                 </form>
 
                 <p><a href="#" id="destroy">このユーザー情報を削除する</a></p>
-                <form method="post" action="<c:url value='/users/destroy' />">
+                <form method="post" action="<c:url value='/userRegistration/destroy' />">
                     <input type="hidden" name="_token" value="${_token}" >
                 </form>
 
@@ -24,7 +24,7 @@
             </c:otherwise>
         </c:choose>
 
-        <p><a href="<c:url value='/users/index' />">一覧に戻る</a></p>
+        <p><a href="<c:url value='/' />">一覧に戻る</a></p>
         <script src="<c:url value='/js/common.js'/>"></script>
     </c:param>
 </c:import>

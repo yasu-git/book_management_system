@@ -1,4 +1,4 @@
-package controllers.users;
+package controllers.usersRegistration;
 
 import java.io.IOException;
 import java.sql.Timestamp;
@@ -18,16 +18,16 @@ import utils.DBUtil;
 import utils.EncryptUtil;
 
 /**
- * Servlet implementation class UsersUpdateServlet
+ * Servlet implementation class UserRegistrationUpdate
  */
-@WebServlet("/users/update")
-public class UsersUpdateServlet extends HttpServlet {
+@WebServlet("/userRegistration/update")
+public class UserRegistrationUpdate extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UsersUpdateServlet() {
+    public UserRegistrationUpdate() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,7 +36,6 @@ public class UsersUpdateServlet extends HttpServlet {
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // TODO Auto-generated method stub
         String _token = (String)request.getParameter("_token");
 
         if(_token != null && _token.equals(request.getSession().getId())){
@@ -74,7 +73,7 @@ public class UsersUpdateServlet extends HttpServlet {
             }
 
             u.setUserName(request.getParameter("userName"));
-            u.setAdmin_flag(Integer.parseInt(request.getParameter("admin_flag")));
+            u.setAdmin_flag(0);
             u.setUpdated_at(new Timestamp(System.currentTimeMillis()));
 
             List<String> errors = UserValidators.validate(u, uerId_duplicate_check, password_check_flag);
@@ -86,7 +85,7 @@ public class UsersUpdateServlet extends HttpServlet {
                 request.setAttribute("user", u);
                 request.setAttribute("errors", errors);
 
-                RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/users/edit.jsp");
+                RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/userRegistration/edit.jsp");
                 rd.forward(request, response);
 
             }else{
@@ -97,12 +96,13 @@ public class UsersUpdateServlet extends HttpServlet {
                 request.getSession().setAttribute("flush", "更新が完了しました");
 
                 request.getSession().removeAttribute("user_id");
+                request.getSession().setAttribute("login_user", u);
 
-                response.sendRedirect(request.getContextPath() + "/users/index");
+                response.sendRedirect(request.getContextPath() + "/");
 
             }
-
         }
+
     }
 
 }
