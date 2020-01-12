@@ -65,6 +65,13 @@ public class LoginFilter implements Filter {
                     return;
                 }
 
+              //ユーザー管理機能は管理者のみが閲覧できるようにする
+                if(servlet_path.matches("/books.index") && u.getAdmin_flag() == 0){
+                    ((HttpServletResponse)response).sendRedirect(context_path + "/");
+                    return;
+                }
+
+
             }else{
                 /*
                  * ログイン画面について

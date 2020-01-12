@@ -1,4 +1,5 @@
-package controllers.users;
+package controllers.books;
+
 
 import java.io.IOException;
 
@@ -9,20 +10,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import models.User;
+import models.Book;
 import utils.DBUtil;
 
 /**
- * Servlet implementation class UsersDestroyServlet
+ * Servlet implementation class BooksDestroyServlet
  */
-@WebServlet("/users/destroy")
-public class UsersDestroyServlet extends HttpServlet {
+@WebServlet("/books/destroy")
+public class BooksDestroyServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UsersDestroyServlet() {
+    public BooksDestroyServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,29 +31,26 @@ public class UsersDestroyServlet extends HttpServlet {
     /**
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
-        String _token = (String) request.getParameter("_token");
 
-        if (_token != null && _token.equals(request.getSession().getId())) {
+        String _token = (String)request.getParameter("_token");
+        if(_token != null && _token.equals(request.getSession().getId())){
             EntityManager em = DBUtil.createEntityManager();
 
-            User u = em.find(User.class, (Integer) (request.getSession().getAttribute("user_id")));
+            Book b = em.find(Book.class, (Integer)(request.getSession().getAttribute("book_id")));
 
-            //ユーザーの削除処理
             em.getTransaction().begin();
-            //ユーザー情報を入れると消せる
-            em.remove(u);
-
+            em.remove(b);
             em.getTransaction().commit();
             em.close();
 
+            //セッションスコープ上の不要になったデータを削除
             request.getSession().setAttribute("flush", "削除が完了しました。");
-            request.getSession().removeAttribute("user_id");
+            request.getSession().removeAttribute("book_id");
 
-            response.sendRedirect(request.getContextPath() + "/users/index");
-
+            //indexぺーじへリダイレクト
+            response.sendRedirect(request.getContextPath() + "/books/index");
         }
     }
 

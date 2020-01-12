@@ -56,30 +56,45 @@ public class BooksCreateServlet extends HttpServlet {
 
             //isbn番号が正常に取得できた時の処理
             try {
+
                 isbn = Long.parseLong(strisbn);
 
                 //apiから本の情報を取得
-                GoogleBookApiJackson google = new GoogleBookApiJackson(isbn);
+                GoogleBookApiJackson google = new GoogleBookApiJackson();
 
-                b = google.getBook();
+                //isbnコードをセット
+                google.setIsbn(isbn);
 
-                b.setIsbn(isbn);
+                //bookの数を取得
+                int count = google.getCount();
 
-                //登録する本の情報がデーターベースにあるか
-                //setParameterで呼び出したquery文のパラメータにセットする
-                long books_DuplicationCount = (long) em.createNamedQuery("getMyBooksDuplicationCount", Long.class)
-                        .setParameter("isbn", isbn)
-                        .setParameter("user", user)
-                        .getSingleResult();
 
-                //登録する本の情報がデーターベースにあった場合errorを返す
-                if (books_DuplicationCount > 0) {
-                    errors.add("登録されている本です");
+                    //apiから帰ってきたitem数が0だったら本の情報を取得できなかった
+               if(count == 0){
+                        errors.add("本の情報がありません");
+               }else{
+                        //item情報がある場合の処理
+                        b = google.getBooks();
+
+                        b.setIsbn(isbn);
+
+                        //登録する本の情報がデーターベースにあるか
+                        //setParameterで呼び出したquery文のパラメータにセットする
+                        long books_DuplicationCount = (long) em.createNamedQuery("getMyBooksDuplicationCount", Long.class)
+                                .setParameter("isbn", isbn)
+                                .setParameter("user", user)
+                                .getSingleResult();
+
+                        //登録する本の情報がデーターベースにあった場合errorを返す
+                        if (books_DuplicationCount > 0) {
+                            errors.add("登録されている本です");
+                    }
                 }
 
             } catch (Exception e) {
                 errors.add("登録できません");
             }
+
 
             b.setUser(user);
             b.setEvaluate(0);

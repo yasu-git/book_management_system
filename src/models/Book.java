@@ -37,7 +37,20 @@ import javax.persistence.Table;
     @NamedQuery(
             name = "getMyBooksDuplicationCount",
             query = "SELECT COUNT(b) FROM Book AS b WHERE b.user = :user AND b.isbn = :isbn"
-            )
+            ),
+    @NamedQuery(
+            name = "getMyBooksSearch",
+            query = "SELECT b FROM Book AS b WHERE b.user = :user AND ( b.author1 like :au1 OR b.author2 like :au2 OR b.author3 like :au3 OR b.publisher like :pu OR b.title like :tit ) ORDER BY b.id DESC "
+            ),
+    @NamedQuery(
+            name = "getMyBooksSearchCount",
+            query = "SELECT COUNT(b) FROM  Book AS b WHERE b.user = :user AND ( b.author1 like :au1 OR b.author2 like :au2 OR b.author3 like :au3 OR b.publisher like :pu OR b.title like :tit )"
+            ),
+    @NamedQuery(
+            name = "getUserBooksId",
+            query = "SELECT b.id FROM  Book AS b WHERE b.user = :user"
+            ),
+
 
 })
 @Entity
@@ -50,7 +63,7 @@ public class Book {
 
     @ManyToOne
     @JoinColumn(name = "user_Id", nullable = false)
-    private User user;
+    private  User user;
 
   //本の題名
     @Column(name = "title", length = 255 , nullable = false)
@@ -69,7 +82,7 @@ public class Book {
     private String author3 ;
 
     //出版日
-    @Column(name = "publishedDate", nullable = false)
+    @Column(name = "publishedDate", nullable = true)
     private Date publishedDate;
 
     //出版社

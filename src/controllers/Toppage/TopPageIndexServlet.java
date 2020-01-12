@@ -1,6 +1,5 @@
 package controllers.Toppage;
 
-
 import java.io.IOException;
 import java.util.List;
 
@@ -17,7 +16,7 @@ import models.User;
 import utils.DBUtil;
 
 /**
- * Servlet implementation class TopPageIndexServlet
+ * Servlet implementation class TopPageIndexServlet2
  */
 @WebServlet("/index.html")
 public class TopPageIndexServlet extends HttpServlet {
@@ -34,9 +33,7 @@ public class TopPageIndexServlet extends HttpServlet {
     /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
-    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         EntityManager em = DBUtil.createEntityManager();
 
         //ログインユーザー

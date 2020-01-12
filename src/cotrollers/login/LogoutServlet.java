@@ -1,4 +1,4 @@
-package cotrolers.login;
+package cotrollers.login;
 
 import java.io.IOException;
 

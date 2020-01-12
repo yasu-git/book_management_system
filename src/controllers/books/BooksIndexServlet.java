@@ -44,6 +44,8 @@ public class BooksIndexServlet extends HttpServlet {
             page = 1;
         }
 
+
+
         List<Book> books = em.createNamedQuery("getAllBooks", Book.class)
                 .setFirstResult(15 * (page -1))
                 .setMaxResults(15)
@@ -56,6 +58,9 @@ public class BooksIndexServlet extends HttpServlet {
 
         request.setAttribute("books", books);
         request.setAttribute("books_count", books_count);
+
+
+
         request.setAttribute("page", page);
 
         if(request.getSession().getAttribute("flush") != null){
