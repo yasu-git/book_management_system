@@ -34,7 +34,7 @@
             <c:if test="${sessionScope.login_user != null}">
                  <div id="user_name">
                  <c:if test="${sessionScope.login_user.admin_flag == 0}">
-                        <a href="<c:url value='/userRegistration/edit' />">アカウント変更</a>&nbsp;&nbsp;&nbsp;
+                        <a href="<c:url value='/userRegistration/edit' />">アカウント設定</a>&nbsp;&nbsp;&nbsp;
 
                 </c:if>
                     <c:out value="${sessionScope.login_user.userName}" />&nbsp;さん&nbsp;&nbsp;&nbsp;

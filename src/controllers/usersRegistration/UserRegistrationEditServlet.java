@@ -17,13 +17,13 @@ import utils.DBUtil;
  * Servlet implementation class UserRegistrationEdit
  */
 @WebServlet("/userRegistration/edit")
-public class UserRegistrationEdit extends HttpServlet {
+public class UserRegistrationEditServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserRegistrationEdit() {
+    public UserRegistrationEditServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

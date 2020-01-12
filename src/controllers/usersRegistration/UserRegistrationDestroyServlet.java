@@ -1,4 +1,4 @@
-package controllers.users;
+package controllers.usersRegistration;
 
 import java.io.IOException;
 
@@ -13,16 +13,16 @@ import models.User;
 import utils.DBUtil;
 
 /**
- * Servlet implementation class UsersDestroyServlet
+ * Servlet implementation class UserRegistrationDestroyServlet
  */
-@WebServlet("/users/destroy")
-public class UsersDestroyServlet extends HttpServlet {
+@WebServlet("/userRegistration/destroy")
+public class UserRegistrationDestroyServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UsersDestroyServlet() {
+    public UserRegistrationDestroyServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,6 +32,7 @@ public class UsersDestroyServlet extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         // TODO Auto-generated method stub
         String _token = (String) request.getParameter("_token");
 
@@ -50,9 +51,9 @@ public class UsersDestroyServlet extends HttpServlet {
 
             request.getSession().setAttribute("flush", "削除が完了しました。");
 
+            request.getSession().removeAttribute("login_user");
 
-            response.sendRedirect(request.getContextPath() + "/users/index");
-
+            response.sendRedirect(request.getContextPath() + "/login");
         }
     }
 
