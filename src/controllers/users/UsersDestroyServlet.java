@@ -1,6 +1,7 @@
 package controllers.users;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import models.Book;
 import models.User;
 import utils.DBUtil;
 
@@ -40,8 +42,16 @@ public class UsersDestroyServlet extends HttpServlet {
 
             User u = em.find(User.class, (Integer) (request.getSession().getAttribute("user_id")));
 
+            List<Book> books = em.createNamedQuery("getMyAllBooks", Book.class)
+                    .setParameter("user", u)
+                    .getResultList();
+
             //ユーザーの削除処理
             em.getTransaction().begin();
+
+            for (Book book : books) {
+                em.remove(book);
+            }
             //ユーザー情報を入れると消せる
             em.remove(u);
 

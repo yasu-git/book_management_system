@@ -20,7 +20,7 @@ public class QRCodeEncoder {
     //sourceでQRコードを制止する値
     //nameで保存するファイル名
 
-    public static String QRcodCreate  (String source ,String Name )throws NullPointerException{
+    public String QRcodCreate  (String source ,String Name )throws NullPointerException{
 
         //QRコード生成時のエンコーディング
         String encoding = "UTF-8";

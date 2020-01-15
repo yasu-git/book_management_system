@@ -37,11 +37,11 @@
                                         <th>発売日</th>
                                         <td>
                                             <c:choose>
-                                                <c:when test="${book.publishedDate} == null">
-                                                    <fmt:formatDate value="${book.publishedDate}" pattern="yyyy年MM月dd日" />
+                                                <c:when test="${book.publishedDate == null}">
+                                                     情報なし
                                                 </c:when>
                                                 <c:otherwise>
-                                                    情報なし
+                                                    <fmt:formatDate value="${book.publishedDate}" pattern="yyyy年MM月dd日" />
                                                 </c:otherwise>
                                             </c:choose>
 
@@ -60,7 +60,16 @@
                                     </tr>
                                     <tr>
                                         <th>定価</th>
-                                        <td><c:out value="${book.listPrice}円" /></td>
+                                        <td>
+                                            <c:choose>
+                                                <c:when test="${book.listPrice != 0 }">
+                                                    <c:out value="${book.listPrice}円" />
+                                                </c:when>
+                                                <c:otherwise>
+                                                    情報なし
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <th>ISBNコード</th>

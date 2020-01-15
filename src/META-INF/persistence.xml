@@ -5,14 +5,15 @@
         <class>models.User</class>
         <class>models.Book</class>
         <properties>
-            <property name="javax.persistence.schema-generation.database.action" value="create"/>
+            <property name="javax.persistence.schema-generation.database.action" value="none"/>
             <property name="hibernate.dialect	" value="org.hibernate.dialect.MySQL5Dialect"/>
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/book_management_system?useSSL=false&amp;useUnicode=true&amp;characterEncoding=utf8"/>
-            <property name="javax.persistence.jdbc.user" value="bmsuser"/>
-            <property name="javax.persistence.jdbc.password" value="bmspass"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://us-cdbr-iron-east-05.cleardb.net/heroku_ef6e12c59fa5f49?reconnect=true&amp;useSSL=false&amp;useUnicode=true&amp;characterEncoding=utf8&amp;characterSetResults=utf8"/>
+            <property name="javax.persistence.jdbc.user" value="b9875974bf586b"/>
+            <property name="javax.persistence.jdbc.password" value="1143a0cd"/>
+            <property name="javax.persistence.schema-generation.scripts.action" value="none"/>
         </properties>
     </persistence-unit>
 </persistence>

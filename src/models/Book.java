@@ -46,11 +46,6 @@ import javax.persistence.Table;
             name = "getMyBooksSearchCount",
             query = "SELECT COUNT(b) FROM  Book AS b WHERE b.user = :user AND ( b.author1 like :au1 OR b.author2 like :au2 OR b.author3 like :au3 OR b.publisher like :pu OR b.title like :tit )"
             ),
-    @NamedQuery(
-            name = "getUserBooksId",
-            query = "SELECT b.id FROM  Book AS b WHERE b.user = :user"
-            ),
-
 
 })
 @Entity

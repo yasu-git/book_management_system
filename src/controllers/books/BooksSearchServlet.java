@@ -50,6 +50,9 @@ public class BooksSearchServlet extends HttpServlet {
 
         String keyword = request.getParameter("keyword");
 
+        keyword = keyword.replaceAll("　", "%");
+        keyword = keyword.replaceAll(" ", "%");
+
         List<Book> books = em.createNamedQuery("getMyBooksSearch", Book.class)
                 .setParameter("user", login_user)
                 .setParameter("au1", "%" + keyword + "%")
