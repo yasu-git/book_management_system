@@ -1,6 +1,8 @@
 package controllers.books;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -27,7 +29,7 @@ public class BooksSearchServlet extends HttpServlet {
      */
     public BooksSearchServlet() {
         super();
-        // TODO Auto-generated constructor stub
+
     }
 
     /**
@@ -50,33 +52,65 @@ public class BooksSearchServlet extends HttpServlet {
 
         String keyword = request.getParameter("keyword");
 
-        keyword = keyword.replaceAll("　", "%");
-        keyword = keyword.replaceAll(" ", "%");
+        keyword = keyword.replaceAll("　", " ");
 
-        List<Book> books = em.createNamedQuery("getMyBooksSearch", Book.class)
-                .setParameter("user", login_user)
-                .setParameter("au1", "%" + keyword + "%")
-                .setParameter("au2", "%" + keyword + "%")
-                .setParameter("au3", "%" + keyword + "%")
-                .setParameter("pu", "%" + keyword + "%")
-                .setParameter("tit", "%" + keyword + "%")
-                .setFirstResult(15 * (page - 1))
-                .setMaxResults(15)
-                .getResultList();
+        String keys[] = keyword.split(" ");
 
-        //本の数
-        long books_count = (long) em.createNamedQuery("getMyBooksSearchCount", Long.class)
-                .setParameter("user", login_user)
-                .setParameter("au1", "%" + keyword + "%")
-                .setParameter("au2", "%" + keyword + "%")
-                .setParameter("au3", "%" + keyword + "%")
-                .setParameter("pu", "%" + keyword + "%")
-                .setParameter("tit", "%" + keyword + "%")
-                .getSingleResult();
+        List<Book> book = new ArrayList<Book>();
+        long books_count =0L;
+
+        //検索件数のものが心配
+        if (!keyword.equals("")) {
+            List<Book> books = new ArrayList<Book>();
+            for (String key : keys) {
+
+                if (!key.equals("")) {
+                    List<Book> result = em.createNamedQuery("getMyBooksSearch", Book.class)
+                            .setParameter("user", login_user)
+                            .setParameter("au1", "%" + key + "%")
+                            .setParameter("au2", "%" + key + "%")
+                            .setParameter("au3", "%" + key + "%")
+                            .setParameter("pu", "%" + key + "%")
+                            .setParameter("tit", "%" + key + "%")
+                            .getResultList();
+
+                    books.addAll(result);
+                }
+            }
+            //検索結果の重複部分をLinkedHashSetで取り除く
+            books = new ArrayList<Book>(new LinkedHashSet<>(books));
+
+            books_count =books.size();
+
+            for(int i =0 + (page-1)*15 ;i <= page * 15 -1; i++){
+                //15件情報を挿入する処理
+                //情報が途中で亡くなった場合エラーが出るので途中で破棄する
+                try{
+
+                    book.add(books.get(i));
+                }catch(Exception e){
+                    break;
+                }
+
+            }
+
+        }else{
+            book = em.createNamedQuery("getMyAllBooks", Book.class)
+                    .setParameter("user", login_user)
+                    .setFirstResult(15 * (page - 1))
+                    .setMaxResults(15)
+                    .getResultList();
+
+            books_count = (long)em.createNamedQuery("getMyBooksCount", Long.class)
+                    .setParameter("user", login_user)
+                    .getSingleResult();
+        }
+
+
 
         em.close();
 
-        request.setAttribute("books", books);
+        request.setAttribute("books", book);
         request.setAttribute("books_count", books_count);
         request.setAttribute("page", page);
         request.setAttribute("keyword", keyword);
